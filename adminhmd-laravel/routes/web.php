@@ -92,11 +92,11 @@ Route::middleware(['auth'])->group(function () {
     ';
 });
     // Checkout
-    Route::get('/checkout',            [FrontendCheckoutController::class, 'index'])->name('checkout.index');
-    Route::post('/checkout',           [FrontendCheckoutController::class, 'store'])->name('checkout.store');
-    Route::post('/checkout/stripe',    [FrontendCheckoutController::class, 'stripe'])->name('checkout.stripe');
-    Route::get('/checkout/stripe/success', [FrontendCheckoutController::class, 'stripeSuccess'])->name('checkout.stripe.success');
-    Route::get('/checkout/stripe/cancel', [FrontendCheckoutController::class, 'stripeCancel'])->name('checkout.stripe.cancel');
+        Route::get('/checkout',            [FrontendCheckoutController::class, 'index'])->name('checkout.index');
+        Route::post('/checkout',           [FrontendCheckoutController::class, 'store'])->name('checkout.store');
+        Route::post('/checkout/stripe',    [FrontendCheckoutController::class, 'stripe'])->name('checkout.stripe');
+        Route::get('/checkout/stripe/success', [FrontendCheckoutController::class, 'stripeSuccess'])->name('checkout.stripe.success');
+        Route::get('/checkout/stripe/cancel', [FrontendCheckoutController::class, 'stripeCancel'])->name('checkout.stripe.cancel');
 
     // Orders
     Route::get('/my-orders',           [FrontendOrderController::class, 'index'])->name('orders.index');

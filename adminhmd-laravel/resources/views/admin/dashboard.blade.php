@@ -37,7 +37,7 @@
             <i class="bi bi-box-seam metric-icon"></i>
             <div class="metric-label">Products</div>
             <div class="metric-value">{{ number_format($total_products) }}</div>
-            <small>{{ $total_categories }} categories · {{ $total_cart }} in carts</small>
+            <small>{{ $total_categories }} categories</small>
         </div>
     </div>
 </div>
@@ -72,10 +72,10 @@
                     <span><i class="bi bi-tags text-info me-2"></i>Categories</span>
                     <strong>{{ $total_categories }}</strong>
                 </li>
-                <li class="list-group-item d-flex justify-content-between px-0">
+                <!-- <li class="list-group-item d-flex justify-content-between px-0">
                     <span><i class="bi bi-cart3 text-danger me-2"></i>Cart Items</span>
                     <strong>{{ $total_cart }}</strong>
-                </li>
+                </li> -->
             </ul>
         </div>
     </div>

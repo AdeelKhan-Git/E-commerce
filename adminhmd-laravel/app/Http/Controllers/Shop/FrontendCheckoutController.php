@@ -11,7 +11,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\OrderPlacedMail;
+use App\Mail\OrderConfirmationMail; 
 use Stripe\Stripe;
 use Stripe\PaymentIntent;
 use App\Jobs\SendOrderConfirmationJob;
@@ -213,7 +213,7 @@ public function stripeSuccess(Request $request)
     try {
 
         Mail::to($order->user->email)
-            ->send(new OrderPlacedMail($order));
+            ->send(new OrderConfirmationMail($order));
 
     } catch (\Exception $e) {
 
