@@ -2,16 +2,32 @@
 @section('title', 'Cart')
 
 @section('content')
-    <div class="container" style="padding:40px 0;">
-        <h2 class="section-title">Your <span class="accent">Cart</span></h2>
+        <div class="container" style="padding:40px 0;">
+            <h2 class="section-title">Your <span class="accent">Cart</span></h2>
 
-        @if ($cart_items->isEmpty())
-            <div style="text-align:center;padding:80px 0;">
-                <i class="bi bi-cart-x" style="font-size:80px;color:var(--border);display:block;margin-bottom:20px;"></i>
-                <h4 style="color:var(--text-muted);">Your cart is empty</h4>
-                <a href="{{ route('shop') }}" class="btn-neon mt-3 d-inline-block">Browse Products</a>
-            </div>
-        @else
+    @if ($cart_items->isEmpty())
+        <div class="checkout-card text-center py-5">
+
+            <i class="bi bi-cart-x"
+            style="font-size:75px;color:var(--pearl-aqua);display:block;margin-bottom:20px;">
+            </i>
+
+            <h3 class="mb-3" style="color:var(--stormy-teal);font-weight:700;">
+                Your Cart is Empty
+            </h3>
+
+            <p style="color:var(--text-muted);max-width:400px;margin:0 auto 30px;">
+                Looks like you haven't added any products yet.
+                Browse our collection and find something you'll love.
+            </p>
+
+            <a href="{{ route('shop') }}" class="btn-primary-custom">
+                <i class="bi bi-bag me-2"></i>
+                Browse Products
+            </a>
+
+        </div>
+    @else
             <div class="row g-4">
                 {{-- Cart Items --}}
                 <div class="col-lg-8">
@@ -58,8 +74,7 @@
                                             onclick="this.previousElementSibling.value=parseInt(this.previousElementSibling.value)+1"
                                             style="background:none;border:none;color:var(--text-primary);padding:5px 12px;cursor:pointer;">+</button>
                                     </div>
-                                    <button type="submit"
-                                        style="background:none;border:1px solid var(--border);color:var(--neon);padding:5px 12px;border-radius:8px;cursor:pointer;font-size:12px;">
+                                   <button type="submit" class="btn-outline-custom">
                                         Update
                                     </button>
                                 </form>
@@ -90,31 +105,64 @@
 
                 {{-- Order Summary --}}
                 <div class="col-lg-4">
-                    <div class="cart-total-box">
-                        <h4 style="font-weight:700;margin-bottom:20px;">Order Summary</h4>
-                        <div class="d-flex justify-content-between mb-2">
-                            <span style="color:var(--text-muted);">Items ({{ $cart_count }})</span>
-                            <span>${{ number_format($grand_total, 2) }}</span>
-                        </div>
-                        <div class="d-flex justify-content-between mb-2">
-                            <span style="color:var(--text-muted);">Shipping</span>
-                            <span style="color:var(--neon-green);">Free</span>
-                        </div>
-                        <hr style="border-color:var(--border);">
-                        <div class="d-flex justify-content-between mb-4">
-                            <span style="font-weight:700;font-size:18px;">Total</span>
-                            <span
-                                style="color:var(--neon);font-weight:900;font-size:22px;">${{ number_format($grand_total, 2) }}</span>
-                        </div>
-                        <a href="{{ route('checkout.index') }}" class="btn-neon d-block text-center"
-                            style="font-size:16px;padding:14px;">
-                            Proceed to Checkout <i class="bi bi-arrow-right ms-2"></i>
-                        </a>
-                        <a href="{{ route('shop') }}"
-                            style="display:block;text-align:center;margin-top:12px;color:var(--text-muted);text-decoration:none;font-size:13px;">
-                            <i class="bi bi-arrow-left me-1"></i>Continue Shopping
-                        </a>
+                    <div class="cart-total-box shadow-sm">
+
+                    <h3 class="mb-4" style="font-weight:700;color:var(--stormy-teal);">
+                        Order Summary
+                    </h3>
+
+                    <div class="d-flex justify-content-between mb-3">
+                        <span style="color:var(--text-muted);">
+                            Items ({{ $cart_count }})
+                        </span>
+
+                        <span style="font-weight:600;">
+                            ${{ number_format($grand_total, 2) }}
+                        </span>
                     </div>
+
+                    <div class="d-flex justify-content-between mb-4">
+                        <span style="color:var(--text-muted);">
+                            Shipping
+                        </span>
+
+                        <span style="color:var(--stormy-teal);font-weight:600;">
+                            Free
+                        </span>
+                    </div>
+
+                    <hr style="border-color:var(--border);">
+
+                    <div class="d-flex justify-content-between align-items-center my-4">
+                        <span style="font-size:22px;font-weight:700;">
+                            Total
+                        </span>
+
+                        <span class="product-price" style="font-size:42px;">
+                            ${{ number_format($grand_total, 2) }}
+                        </span>
+                    </div>
+
+                    <a href="{{ route('checkout.index') }}"
+                        class="btn-primary-custom w-100 text-center"
+                        style="padding:14px 20px;">
+
+                        Proceed to Checkout
+
+                        <i class="bi bi-arrow-right ms-2"></i>
+
+                    </a>
+
+                    <a href="{{ route('shop') }}"
+                        class="link-secondary d-block text-center mt-4">
+
+                        <i class="bi bi-arrow-left me-1"></i>
+
+                        Continue Shopping
+
+                    </a>
+
+                </div>
                 </div>
             </div>
         @endif

@@ -15,7 +15,7 @@
         {{-- Left: Billing Form --}}
         <div class="col-lg-7">
             <div class="checkout-card">
-                <h5 style="font-weight:700;margin-bottom:20px;color:var(--neon);">
+                <h5 style="font-weight:700;margin-bottom:20px;color:var(--stormy-teal);">
                     <i class="bi bi-person-lines-fill me-2"></i>Billing Details
                 </h5>
                 <div id="billing-fields">
@@ -57,7 +57,7 @@
         <div class="col-lg-5">
             {{-- Order Summary --}}
             <div class="checkout-card mb-4">
-                <h5 style="font-weight:700;margin-bottom:20px;color:var(--neon);">
+                <h5 style="font-weight:700;margin-bottom:20px;color:var(--stormy-teal);">
                     <i class="bi bi-bag-check me-2"></i>Your Order
                 </h5>
                 <table style="width:100%;">
@@ -74,14 +74,14 @@
                                 {{ $item->product->product_name }}
                                 <span style="color:var(--text-muted);">× {{ $item->quantity }}</span>
                             </td>
-                            <td style="padding:10px 0;text-align:right;color:var(--neon);">${{ number_format($item->subtotal, 2) }}</td>
+                            <td style="padding:10px 0;text-align:right;color:var(--stormy-teal);">${{ number_format($item->subtotal, 2) }}</td>
                         </tr>
                         @endforeach
                     </tbody>
                     <tfoot>
                         <tr>
                             <td style="padding:12px 0;font-weight:700;font-size:16px;">Order Total</td>
-                            <td style="padding:12px 0;text-align:right;color:var(--neon);font-weight:900;font-size:20px;">${{ number_format($grand_total, 2) }}</td>
+                            <td style="padding:12px 0;text-align:right;color:var(--stormy-teal);font-weight:900;font-size:20px;">${{ number_format($grand_total, 2) }}</td>
                         </tr>
                     </tfoot>
                 </table>
@@ -89,7 +89,7 @@
 
             {{-- Payment Method --}}
             <div class="checkout-card">
-                <h5 style="font-weight:700;margin-bottom:20px;color:var(--neon);">
+                <h5 style="font-weight:700;margin-bottom:20px;color:var(--stormy-teal);">
                     <i class="bi bi-credit-card me-2"></i>Payment Method
                 </h5>
                 <div class="d-flex gap-3 mb-4">
@@ -105,15 +105,15 @@
 
                 {{-- COD --}}
                 <div class="pay-section active" id="section-cod">
-                    <div style="background:rgba(0,245,255,.05);border:1px solid var(--border);border-radius:8px;padding:15px;margin-bottom:15px;">
+                    <div style="background:var(--alice-blue);border:1px solid var(--border);border-radius:8px;padding:15px;margin-bottom:15px;">
                         <p style="color:var(--text-muted);margin:0;font-size:14px;">
-                            <i class="bi bi-info-circle me-2" style="color:var(--neon);"></i>
+                            <i class="bi bi-info-circle me-2" style="color:var(--stormy-teal);"></i>
                             Pay with cash when your order arrives at your door.
                         </p>
                     </div>
                     <button
                         type="button"
-                        class="btn-neon w-100"
+                        class="btn-primary-custom w-100"
                         style="font-size:16px;padding:14px;"
                         id="cod-btn"
                         onclick="submitCOD()"
@@ -132,11 +132,11 @@
                 {{-- Stripe --}}
                 <div class="pay-section" id="section-stripe">
                     <div id="card-element" style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:8px;padding:15px;margin-bottom:10px;"></div>
-                    <div id="card-errors" style="color:var(--neon-pink);font-size:13px;min-height:20px;margin-bottom:10px;"></div>
+                    <div id="card-errors" style="color:#dc3545;font-size:13px;min-height:20px;margin-bottom:10px;"></div>
                     <div style="color:var(--text-muted);font-size:12px;margin-bottom:15px;">
                         <i class="bi bi-lock me-1"></i>Secured by Stripe
                     </div>
-                    <button type="button" class="btn-neon w-100" style="font-size:16px;padding:14px;" id="stripe-btn" onclick="submitStripe()">
+                    <button type="button" class="btn-primary-custom w-100" style="font-size:16px;padding:14px;" id="stripe-btn" onclick="submitStripe()">
                         <span id="stripe-btn-text">Pay ${{ number_format($grand_total, 2) }}</span>
                         <span id="stripe-spinner" style="display:none;"><i class="bi bi-arrow-repeat"></i> Processing...</span>
                     </button>
@@ -171,12 +171,16 @@ const card = elements.create('card', {
     style: {
         base: {
             fontSize: '16px',
-            color: '#f0f0f0',
-            iconColor: '#00f5ff',
-            '::placeholder': { color: '#888' }
+            color: '#1a2e30',
+            iconColor: '#006d77',
+            fontFamily: '"Segoe UI", sans-serif',
+            '::placeholder': {
+                color: '#6c757d'
+            }
         },
         invalid: {
-            color: '#ff006e'
+            color: '#dc3545',
+            iconColor: '#dc3545'
         }
     }
 });

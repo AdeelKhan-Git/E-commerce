@@ -86,11 +86,7 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/cart/{cart}',         [FrontendCartController::class, 'update'])->name('cart.update');
     Route::delete('/cart/{cart}',      [FrontendCartController::class, 'remove'])->name('cart.remove');
 
-    Route::get('/test-image', function () {
-    return '
-        <img src="' . asset('uploads/product_4_1782404402_6a3d55327f2a9.jpg') . '" width="200">
-    ';
-});
+
     // Checkout
         Route::get('/checkout',            [FrontendCheckoutController::class, 'index'])->name('checkout.index');
         Route::post('/checkout',           [FrontendCheckoutController::class, 'store'])->name('checkout.store');

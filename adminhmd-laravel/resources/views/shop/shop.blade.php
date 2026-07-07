@@ -38,14 +38,14 @@
                             <input type="number" name="max_price" class="form-control-dark" value="{{ $max_price }}"
                                 min="0" placeholder="9999">
                         </div>
-                        <button type="submit" class="btn-neon w-100" style="font-size:13px;padding:8px;">
+                        <button type="submit" class="btn-primary-custom w-100" style="font-size:13px;padding:8px;">
                             <i class="bi bi-funnel me-1"></i>Apply Filter
                         </button>
                     </form>
                 </div>
 
                 @if ($search || $category_id || $min_price || $max_price)
-                    <a href="{{ route('shop') }}" class="btn-neon btn-neon-pink d-block text-center"
+                    <a href="{{ route('shop') }}" class="btn-warm d-block text-center"
                         style="font-size:13px;padding:8px;">
                         <i class="bi bi-x-circle me-1"></i>Clear Filters
                     </a>
@@ -65,7 +65,7 @@
                         <input type="hidden" name="category_id" value="{{ $category_id }}">
                         <input type="hidden" name="min_price" value="{{ $min_price }}">
                         <input type="hidden" name="max_price" value="{{ $max_price }}">
-                        <select name="sort" class="form-control-dark" style="width:auto;display:inline-block;"
+                        <select name="sort" class="form-control-dark" style="min-width:180px;"
                             onchange="document.getElementById('sort-form').submit()">
                             <option value="latest" {{ $sort === 'latest' ? 'selected' : '' }}>Latest</option>
                             <option value="name_asc" {{ $sort === 'name_asc' ? 'selected' : '' }}>Name A–Z</option>
@@ -82,7 +82,7 @@
                     <div class="text-center py-5">
                         <i class="bi bi-search" style="font-size:60px;color:var(--border);"></i>
                         <h4 style="color:var(--text-muted);margin-top:20px;">No products found</h4>
-                        <a href="{{ route('shop') }}" class="btn-neon mt-3 d-inline-block">Browse All Products</a>
+                        <a href="{{ route('shop') }}" class="btn-primary-custom mt-3 d-inline-block">Browse All Products</a>
                     </div>
                 @else
                     <div class="row g-4">

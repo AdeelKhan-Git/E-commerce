@@ -17,7 +17,7 @@
                 </p>
             </div>
 
-            <a href="{{ route('shop') }}" class="btn-neon">
+            <a href="{{ route('shop') }}" class="btn-primary-custom">
                 <i class="bi bi-bag-plus me-2"></i>
                 Continue Shopping
             </a>
@@ -35,7 +35,7 @@
                     You haven't placed any orders yet.
                 </p>
 
-                <a href="{{ route('shop') }}" class="btn-neon mt-3">
+                <a href="{{ route('shop') }}" class="btn-primary-custom mt-3">
                     Browse Products
                 </a>
 
@@ -48,20 +48,20 @@
                     $paymentStatus = strtolower($order->payment_status ?? 'pending');
 
                     $statusClass = match ($orderStatus) {
-                        'pending' => 'badge-pink',
-                        'processing' => 'badge-neon',
-                        'completed' => 'bg-success',
-                        'shipped' => 'bg-info',
-                        'cancelled' => 'bg-danger',
-                        default => 'bg-secondary',
+                        'pending' => 'status-pending',
+                        'processing' => 'status-processing',
+                        'completed' => 'status-completed',
+                        'shipped' => 'status-processing',
+                        'cancelled' => 'status-cancelled',
+                        default => 'status-pending',
                     };
 
-                    $paymentClass = match ($paymentStatus) {
-                        'paid' => 'bg-success',
-                        'pending' => 'bg-warning text-dark',
-                        'failed' => 'bg-danger',
-                        default => 'bg-secondary',
-                    };
+                 $paymentClass = match ($paymentStatus) {
+                    'paid' => 'status-completed',
+                    'pending' => 'status-pending',
+                    'failed' => 'status-cancelled',
+                    default => 'status-processing',
+                };
 
                 @endphp
 
@@ -118,7 +118,7 @@
                                             Payment
                                         </small>
 
-                                        <span class="badge {{ $paymentClass }}">
+                                        <span class="status-badge {{ $paymentClass }}">
                                             {{ ucfirst($paymentStatus) }}
                                         </span>
 
@@ -130,19 +130,9 @@
                                             Status
                                         </small>
 
-                                        @if ($statusClass == 'badge-neon')
-                                            <span class="badge-neon">
-                                                {{ ucfirst($orderStatus) }}
-                                            </span>
-                                        @elseif($statusClass == 'badge-pink')
-                                            <span class="badge-pink">
-                                                {{ ucfirst($orderStatus) }}
-                                            </span>
-                                        @else
-                                            <span class="badge {{ $statusClass }}">
-                                                {{ ucfirst($orderStatus) }}
-                                            </span>
-                                        @endif
+                                     <span class="status-badge {{ $statusClass }}">
+                                            {{ ucfirst($orderStatus) }}
+                                        </span>
 
                                     </div>
 
@@ -152,7 +142,7 @@
 
                             <div class="col-lg-3 text-lg-end">
 
-                                <button class="btn-neon" style="padding:8px 20px;font-size:13px;"
+                                <button class="btn-primary-custom" style="padding:8px 20px;font-size:13px;"
                                     onclick="toggleOrder({{ $order->id }})" id="btn-{{ $order->id }}">
 
                                     <i class="bi bi-chevron-down"></i>
@@ -173,7 +163,7 @@
 
                         <div class="p-4">
 
-                            <h5 class="mb-4 text-neon">
+                            <h5 class="mb-4 text-teal">
 
                                 <i class="bi bi-box-seam me-2"></i>
 
@@ -233,7 +223,7 @@
 
                                         <div class="col-md-3 mt-3 mt-md-0">
 
-                                            <span class="badge-neon">
+                                            <span class="status-badge status-processing">
 
                                                 × {{ $item->quantity }}
 
@@ -264,7 +254,7 @@
 
                                     <div class="checkout-card h-100">
 
-                                        <h6 class="text-neon mb-3">
+                                        <h6 class="text-teal mb-3">
 
                                             <i class="bi bi-geo-alt-fill me-2"></i>
 
@@ -286,7 +276,7 @@
 
                                     <div class="checkout-card h-100">
 
-                                        <h6 class="text-neon mb-3">
+                                        <h6 class="text-teal mb-3">
 
                                             <i class="bi bi-credit-card me-2"></i>
 
@@ -322,7 +312,7 @@
 
                                                 <td class="text-end">
 
-                                                    <span class="badge {{ $paymentClass }}">
+                                                    <span class="status-badge {{ $paymentClass }}">
 
                                                         {{ ucfirst($paymentStatus) }}
 
@@ -342,25 +332,9 @@
 
                                                 <td class="text-end">
 
-                                                    @if ($statusClass == 'badge-neon')
-                                                        <span class="badge-neon">
-
-                                                            {{ ucfirst($orderStatus) }}
-
-                                                        </span>
-                                                    @elseif($statusClass == 'badge-pink')
-                                                        <span class="badge-pink">
-
-                                                            {{ ucfirst($orderStatus) }}
-
-                                                        </span>
-                                                    @else
-                                                        <span class="badge {{ $statusClass }}">
-
-                                                            {{ ucfirst($orderStatus) }}
-
-                                                        </span>
-                                                    @endif
+                                                  <span class="status-badge {{ $statusClass }}">
+                                                        {{ ucfirst($orderStatus) }}
+                                                    </span>
 
                                                 </td>
 
@@ -433,11 +407,4 @@
 
         }
     </script>
-@endpush
-@push('styles')
-<style>
-    .order-card-header small.text-muted {
-        color: #00f5ff !important;
-    }
-</style>
 @endpush
