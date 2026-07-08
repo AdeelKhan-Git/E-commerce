@@ -109,23 +109,19 @@
                                     data-isactive="{{ $product->isactive ? '1' : '0' }}">
                                     <i class="bi bi-pencil"></i> Edit
                                 </button>
-                               <form method="POST"
-                                action="{{ route('admin.products.destroy', $product) }}"
-                                class="d-inline deleteProductForm">
-                                @csrf
-                                @method('DELETE')
+                                <form method="POST" action="{{ route('admin.products.destroy', $product) }}"
+                                    class="d-inline deleteProductForm">
+                                    @csrf
+                                    @method('DELETE')
 
-                                <button
-                                    type="button"
-                                    class="btn btn-danger btn-action delete-product-btn"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#deleteProductModal"
-                                    data-url="{{ route('admin.products.destroy', $product) }}"
-                                    data-name="{{ $product->product_name }}">
+                                    <button type="button" class="btn btn-danger btn-action delete-product-btn"
+                                        data-bs-toggle="modal" data-bs-target="#deleteProductModal"
+                                        data-url="{{ route('admin.products.destroy', $product) }}"
+                                        data-name="{{ $product->product_name }}">
 
-                                    <i class="bi bi-trash"></i>
-                                </button>
-                            </form>
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     @empty
@@ -154,7 +150,8 @@
                             <div class="col-12"><label class="form-label">Product Name</label><input type="text"
                                     class="form-control" name="product_name"></div>
                             <div class="col-md-6"><label class="form-label">Price</label><input type="number"
-                                    class="form-control" name="price"step="0.01" min="0" placeholder="0.00"></div>
+                                    class="form-control" name="price"step="0.01" min="0" placeholder="0.00">
+                            </div>
                             <div class="col-md-6">
                                 <label class="form-label">Category</label>
                                 <select class="form-select" name="category_id">
@@ -325,14 +322,14 @@
         </div>
     </div>
     <!-- Delete Product Modal -->
-<div class="modal fade" id="deleteProductModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0 shadow-lg rounded-4">
+    <div class="modal fade" id="deleteProductModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg rounded-4">
 
-            <div class="modal-body text-center p-5">
+                <div class="modal-body text-center p-5">
 
-                <div
-                    style="
+                    <div
+                        style="
                         width:90px;
                         height:90px;
                         margin:auto;
@@ -342,62 +339,54 @@
                         align-items:center;
                         justify-content:center;
                     ">
-                    <i class="bi bi-trash-fill text-danger"
-                       style="font-size:42px;"></i>
-                </div>
+                        <i class="bi bi-trash-fill text-danger" style="font-size:42px;"></i>
+                    </div>
 
-                <h3 class="mt-4 fw-bold">
-                    Delete Product?
-                </h3>
+                    <h3 class="mt-4 fw-bold">
+                        Delete Product?
+                    </h3>
 
-                <p class="text-muted mt-3 mb-2">
-                    Are you sure you want to permanently delete
-                </p>
+                    <p class="text-muted mt-3 mb-2">
+                        Are you sure you want to permanently delete
+                    </p>
 
-                <h5 id="deleteProductName"
-                    class="fw-bold text-dark mb-4">
-                </h5>
+                    <h5 id="deleteProductName" class="fw-bold text-dark mb-4">
+                    </h5>
 
-                <p class="text-danger small">
-                    This action cannot be undone.
-                </p>
+                    <p class="text-danger small">
+                        This action cannot be undone.
+                    </p>
 
-                <div class="d-flex gap-3 mt-4">
+                    <div class="d-flex gap-3 mt-4">
 
-                    <button
-                        class="btn btn-light border w-50 py-2"
-                        data-bs-dismiss="modal">
+                        <button class="btn btn-light border w-50 py-2" data-bs-dismiss="modal">
 
-                        Cancel
-
-                    </button>
-
-                    <form
-                        id="deleteProductForm"
-                        method="POST"
-                        class="w-50">
-
-                        @csrf
-                        @method('DELETE')
-
-                        <button
-                            class="btn btn-danger w-100 py-2">
-
-                            <i class="bi bi-trash me-2"></i>
-
-                            Delete
+                            Cancel
 
                         </button>
 
-                    </form>
+                        <form id="deleteProductForm" method="POST" class="w-50">
+
+                            @csrf
+                            @method('DELETE')
+
+                            <button class="btn btn-danger w-100 py-2">
+
+                                <i class="bi bi-trash me-2"></i>
+
+                                Delete
+
+                            </button>
+
+                        </form>
+
+                    </div>
 
                 </div>
 
             </div>
-
         </div>
     </div>
-</div>
 
 @endsection
 
@@ -424,19 +413,19 @@
             const grid = document.getElementById('attGrid_' + pid);
             if (grid) grid.classList.remove('d-none');
         });
-        
+
         document.querySelectorAll('.delete-product-btn').forEach(button => {
 
-        button.addEventListener('click', function () {
+            button.addEventListener('click', function() {
 
-            document.getElementById('deleteProductForm').action =
-                this.dataset.url;
+                document.getElementById('deleteProductForm').action =
+                    this.dataset.url;
 
-            document.getElementById('deleteProductName').textContent =
-                this.dataset.name;
+                document.getElementById('deleteProductName').textContent =
+                    this.dataset.name;
+
+            });
 
         });
-
-});
     </script>
 @endpush

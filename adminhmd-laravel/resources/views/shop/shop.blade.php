@@ -45,8 +45,7 @@
                 </div>
 
                 @if ($search || $category_id || $min_price || $max_price)
-                    <a href="{{ route('shop') }}" class="btn-warm d-block text-center"
-                        style="font-size:13px;padding:8px;">
+                    <a href="{{ route('shop') }}" class="btn-warm d-block text-center" style="font-size:13px;padding:8px;">
                         <i class="bi bi-x-circle me-1"></i>Clear Filters
                     </a>
                 @endif
@@ -82,7 +81,8 @@
                     <div class="text-center py-5">
                         <i class="bi bi-search" style="font-size:60px;color:var(--border);"></i>
                         <h4 style="color:var(--text-muted);margin-top:20px;">No products found</h4>
-                        <a href="{{ route('shop') }}" class="btn-primary-custom mt-3 d-inline-block">Browse All Products</a>
+                        <a href="{{ route('shop') }}" class="btn-primary-custom mt-3 d-inline-block">Browse All
+                            Products</a>
                     </div>
                 @else
                     <div class="row g-4">

@@ -122,25 +122,24 @@
                                 <tbody>
 
                                     @foreach ($order->items as $item)
+                                        <tr>
 
-                                    <tr>
+                                            <td style="border-bottom:1px solid #eee;padding:10px;">
 
-                                        <td style="border-bottom:1px solid #eee;padding:10px;">
+                                                @php
+                                                    $image = optional($item->product->primaryImage)->file_url;
 
-                                            @php
-                                                $image = optional($item->product->primaryImage)->file_url;
-                                                
-                                            @endphp
+                                                @endphp
 
-                                            @if($image)
-                                                <img
-                                                    src="{{ asset($image) }}" width="70">
+                                                @if ($image)
+                                                    <img src="{{ asset($image) }}" width="70">
                                                     alt="{{ $item->product->product_name }}"
                                                     width="70"
                                                     style="display:block;border-radius:8px;border:1px solid #ddd;"
-                                                >
-                                            @else
-                                                <div style="
+                                                    >
+                                                @else
+                                                    <div
+                                                        style="
                                                     width:70px;
                                                     height:70px;
                                                     background:#f2f2f2;
@@ -149,29 +148,28 @@
                                                     color:#999;
                                                     border-radius:8px;
                                                 ">
-                                                    No Image
-                                                </div>
-                                            @endif
+                                                        No Image
+                                                    </div>
+                                                @endif
 
-                                        </td>
+                                            </td>
 
-                                        <td style="border-bottom:1px solid #eee;">
-                                            {{ $item->product->product_name }}
-                                        </td>
+                                            <td style="border-bottom:1px solid #eee;">
+                                                {{ $item->product->product_name }}
+                                            </td>
 
-                                        <td align="center" style="border-bottom:1px solid #eee;">
-                                            {{ $item->quantity }}
-                                        </td>
+                                            <td align="center" style="border-bottom:1px solid #eee;">
+                                                {{ $item->quantity }}
+                                            </td>
 
-                                        <td align="right" style="border-bottom:1px solid #eee;">
-                                            ${{ number_format($item->subtotal, 2) }}
-                                        </td>
+                                            <td align="right" style="border-bottom:1px solid #eee;">
+                                                ${{ number_format($item->subtotal, 2) }}
+                                            </td>
 
-                                    </tr>
-
+                                        </tr>
                                     @endforeach
 
-                                    </tbody>
+                                </tbody>
 
                             </table>
 

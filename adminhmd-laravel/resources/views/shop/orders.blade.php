@@ -56,12 +56,12 @@
                         default => 'status-pending',
                     };
 
-                 $paymentClass = match ($paymentStatus) {
-                    'paid' => 'status-completed',
-                    'pending' => 'status-pending',
-                    'failed' => 'status-cancelled',
-                    default => 'status-processing',
-                };
+                    $paymentClass = match ($paymentStatus) {
+                        'paid' => 'status-completed',
+                        'pending' => 'status-pending',
+                        'failed' => 'status-cancelled',
+                        default => 'status-processing',
+                    };
 
                 @endphp
 
@@ -130,7 +130,7 @@
                                             Status
                                         </small>
 
-                                     <span class="status-badge {{ $statusClass }}">
+                                        <span class="status-badge {{ $statusClass }}">
                                             {{ ucfirst($orderStatus) }}
                                         </span>
 
@@ -332,7 +332,7 @@
 
                                                 <td class="text-end">
 
-                                                  <span class="status-badge {{ $statusClass }}">
+                                                    <span class="status-badge {{ $statusClass }}">
                                                         {{ ucfirst($orderStatus) }}
                                                     </span>
 

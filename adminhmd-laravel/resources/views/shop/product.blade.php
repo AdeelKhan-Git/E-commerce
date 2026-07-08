@@ -104,9 +104,8 @@
                             </button>
                         </form>
                     @else
-                        <a href="{{ route('login') }}"
-                        class="d-block text-center mb-4"
-                        style="
+                        <a href="{{ route('login') }}" class="d-block text-center mb-4"
+                            style="
                                 background:linear-gradient(135deg,#006d77,#008793);
                                 color:#fff;
                                 text-decoration:none;

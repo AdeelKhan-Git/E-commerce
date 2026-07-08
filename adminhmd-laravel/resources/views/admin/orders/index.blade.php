@@ -66,83 +66,111 @@
         <div class="panel-title"><i class="bi bi-table me-2"></i>Order List</div>
         <div class="table-responsive">
             <table class="table align-middle mb-0">
-             <thead>
-                <tr><th>Order #</th><th>Customer</th><th>Amount</th><th colspan="2">Status (editable)</th><th>Method</th><th>Date</th><th class="text-end">Action</th></tr>
-            </thead>
+                <thead>
+                    <tr>
+                        <th>Order #</th>
+                        <th>Customer</th>
+                        <th>Amount</th>
+                        <th colspan="2">Status (editable)</th>
+                        <th>Method</th>
+                        <th>Date</th>
+                        <th class="text-end">Action</th>
+                    </tr>
+                </thead>
                 <tbody>
                     @forelse($orders as $order)
-                @php
-                    $pc = ['paid'=>'success','pending'=>'warning','failed'=>'danger'][$order->payment_status] ?? 'secondary';
-                    $oc = ['completed'=>'success','processing'=>'primary','shipped'=>'info','pending'=>'warning','cancelled'=>'secondary'][$order->order_status] ?? 'secondary';
-                @endphp
-                <tr>
-                    <td><span class="badge bg-dark">{{ $order->order_number }}</span></td>
-                    <td>
-                        <strong>{{ $order->user?->username ?? 'Guest' }}</strong>
-                        <div class="text-muted small">{{ $order->user?->email }}</div>
-                    </td>
-                    <td>${{ number_format($order->total_amount, 2) }}</td>
- 
-                    {{-- Inline Status Update Form --}}
-                    <td colspan="2">
-                        <form method="POST" action="{{ route('admin.orders.updateStatus', $order) }}" class="d-flex gap-2 align-items-center flex-wrap">
-                            @csrf @method('PUT')
-                            <select name="payment_status" class="form-select form-select-sm" style="width:auto;">
-                                <option value="pending" {{ $order->payment_status === 'pending' ? 'selected' : '' }}>Pending</option>
-                                <option value="paid"    {{ $order->payment_status === 'paid'    ? 'selected' : '' }}>Paid</option>
-                                <option value="failed"  {{ $order->payment_status === 'failed'  ? 'selected' : '' }}>Failed</option>
-                            </select>
-                            <select name="order_status" class="form-select form-select-sm" style="width:auto;">
-                                <option value="pending"    {{ $order->order_status === 'pending'    ? 'selected' : '' }}>Pending</option>
-                                <option value="processing" {{ $order->order_status === 'processing' ? 'selected' : '' }}>Processing</option>
-                                <option value="shipped"    {{ $order->order_status === 'shipped'    ? 'selected' : '' }}>Shipped</option>
-                                <option value="completed"  {{ $order->order_status === 'completed'  ? 'selected' : '' }}>Completed</option>
-                                <option value="cancelled"  {{ $order->order_status === 'cancelled'  ? 'selected' : '' }}>Cancelled</option>
-                            </select>
-                            <button type="submit" class="btn btn-sm btn-primary" title="Save and notify customer if changed">
-                                <i class="bi bi-check-lg"></i> Update
-                            </button>
-                        </form>
-                    </td>
- 
-                    <td>{{ ucwords(str_replace('_', ' ', $order->payment_method ?? '—')) }}</td>
-                    <td>{{ $order->created_at?->format('M d, Y') }}</td>
-                    <td class="text-end">
-                        <button class="btn btn-light btn-action" data-bs-toggle="modal" data-bs-target="#editOrderModal"
-                            data-id="{{ $order->id }}"
-                            data-order-number="{{ $order->order_number }}"
-                            data-payment-status="{{ $order->payment_status }}"
-                            data-order-status="{{ $order->order_status }}"
-                            data-shipping="{{ $order->shipping_address }}"
-                            data-billing="{{ $order->billing_address }}">
-                            <i class="bi bi-pencil"></i> Edit
-                        </button>
-                        <form method="POST"
-                            action="{{ route('admin.orders.destroy', $order) }}"
-                            class="d-inline">
+                        @php
+                            $pc =
+                                ['paid' => 'success', 'pending' => 'warning', 'failed' => 'danger'][
+                                    $order->payment_status
+                                ] ?? 'secondary';
+                            $oc =
+                                [
+                                    'completed' => 'success',
+                                    'processing' => 'primary',
+                                    'shipped' => 'info',
+                                    'pending' => 'warning',
+                                    'cancelled' => 'secondary',
+                                ][$order->order_status] ?? 'secondary';
+                        @endphp
+                        <tr>
+                            <td><span class="badge bg-dark">{{ $order->order_number }}</span></td>
+                            <td>
+                                <strong>{{ $order->user?->username ?? 'Guest' }}</strong>
+                                <div class="text-muted small">{{ $order->user?->email }}</div>
+                            </td>
+                            <td>${{ number_format($order->total_amount, 2) }}</td>
 
-                            @csrf
-                            @method('DELETE')
+                            {{-- Inline Status Update Form --}}
+                            <td colspan="2">
+                                <form method="POST" action="{{ route('admin.orders.updateStatus', $order) }}"
+                                    class="d-flex gap-2 align-items-center flex-wrap">
+                                    @csrf @method('PUT')
+                                    <select name="payment_status" class="form-select form-select-sm" style="width:auto;">
+                                        <option value="pending"
+                                            {{ $order->payment_status === 'pending' ? 'selected' : '' }}>Pending</option>
+                                        <option value="paid"
+                                            {{ $order->payment_status === 'paid' ? 'selected' : '' }}>Paid</option>
+                                        <option value="failed"
+                                            {{ $order->payment_status === 'failed' ? 'selected' : '' }}>Failed</option>
+                                    </select>
+                                    <select name="order_status" class="form-select form-select-sm" style="width:auto;">
+                                        <option value="pending"
+                                            {{ $order->order_status === 'pending' ? 'selected' : '' }}>Pending</option>
+                                        <option value="processing"
+                                            {{ $order->order_status === 'processing' ? 'selected' : '' }}>Processing
+                                        </option>
+                                        <option value="shipped"
+                                            {{ $order->order_status === 'shipped' ? 'selected' : '' }}>Shipped</option>
+                                        <option value="completed"
+                                            {{ $order->order_status === 'completed' ? 'selected' : '' }}>Completed
+                                        </option>
+                                        <option value="cancelled"
+                                            {{ $order->order_status === 'cancelled' ? 'selected' : '' }}>Cancelled
+                                        </option>
+                                    </select>
+                                    <button type="submit" class="btn btn-sm btn-primary"
+                                        title="Save and notify customer if changed">
+                                        <i class="bi bi-check-lg"></i> Update
+                                    </button>
+                                </form>
+                            </td>
 
-                            <button
-                                type="button"
-                                class="btn btn-danger btn-action delete-order-btn"
-                                data-bs-toggle="modal"
-                                data-bs-target="#deleteOrderModal"
-                                data-url="{{ route('admin.orders.destroy', $order) }}"
-                                data-name="{{ $order->order_number }}">
+                            <td>{{ ucwords(str_replace('_', ' ', $order->payment_method ?? '—')) }}</td>
+                            <td>{{ $order->created_at?->format('M d, Y') }}</td>
+                            <td class="text-end">
+                                <button class="btn btn-light btn-action" data-bs-toggle="modal"
+                                    data-bs-target="#editOrderModal" data-id="{{ $order->id }}"
+                                    data-order-number="{{ $order->order_number }}"
+                                    data-payment-status="{{ $order->payment_status }}"
+                                    data-order-status="{{ $order->order_status }}"
+                                    data-shipping="{{ $order->shipping_address }}"
+                                    data-billing="{{ $order->billing_address }}">
+                                    <i class="bi bi-pencil"></i> Edit
+                                </button>
+                                <form method="POST" action="{{ route('admin.orders.destroy', $order) }}" class="d-inline">
 
-                                <i class="bi bi-trash"></i> Delete
+                                    @csrf
+                                    @method('DELETE')
 
-                            </button>
+                                    <button type="button" class="btn btn-danger btn-action delete-order-btn"
+                                        data-bs-toggle="modal" data-bs-target="#deleteOrderModal"
+                                        data-url="{{ route('admin.orders.destroy', $order) }}"
+                                        data-name="{{ $order->order_number }}">
 
-                        </form>
-                    </td>
-                </tr>
-                @empty
-                <tr><td colspan="8" class="text-center text-muted py-4">No orders found.</td></tr>
-                @endforelse
- 
+                                        <i class="bi bi-trash"></i> Delete
+
+                                    </button>
+
+                                </form>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="8" class="text-center text-muted py-4">No orders found.</td>
+                        </tr>
+                    @endforelse
+
                 </tbody>
             </table>
         </div>
@@ -269,16 +297,15 @@
             </div>
         </div>
     </div>
-{{-- Delete Order Modal --}}
-<div class="modal fade" id="deleteOrderModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content"
-            style="border:none;border-radius:22px;overflow:hidden;">
+    {{-- Delete Order Modal --}}
+    <div class="modal fade" id="deleteOrderModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="border:none;border-radius:22px;overflow:hidden;">
 
-            <div class="modal-body text-center p-5">
+                <div class="modal-body text-center p-5">
 
-                <div
-                    style="
+                    <div
+                        style="
                     width:90px;
                     height:90px;
                     background:#ffe5e5;
@@ -289,58 +316,52 @@
                     margin:auto;
                     ">
 
-                    <i class="bi bi-trash-fill"
-                        style="font-size:40px;color:#dc3545;"></i>
+                        <i class="bi bi-trash-fill" style="font-size:40px;color:#dc3545;"></i>
 
-                </div>
+                    </div>
 
-                <h3 class="fw-bold mt-4 mb-2">
-                    Delete Order?
-                </h3>
+                    <h3 class="fw-bold mt-4 mb-2">
+                        Delete Order?
+                    </h3>
 
-                <p class="text-muted mb-1">
-                    Order
-                </p>
+                    <p class="text-muted mb-1">
+                        Order
+                    </p>
 
-                <strong id="deleteOrderName"></strong>
+                    <strong id="deleteOrderName"></strong>
 
-                <p class="text-muted mt-3 mb-4">
-                    This action cannot be undone.
-                </p>
+                    <p class="text-muted mt-3 mb-4">
+                        This action cannot be undone.
+                    </p>
 
-                <div class="d-flex justify-content-center gap-3">
+                    <div class="d-flex justify-content-center gap-3">
 
-                    <button
-                        class="btn btn-light px-4"
-                        data-bs-dismiss="modal">
-                        Cancel
-                    </button>
-
-                    <form
-                        id="deleteOrderForm"
-                        method="POST">
-
-                        @csrf
-                        @method('DELETE')
-
-                        <button
-                            class="btn btn-danger px-4">
-
-                            <i class="bi bi-trash me-1"></i>
-
-                            Delete
-
+                        <button class="btn btn-light px-4" data-bs-dismiss="modal">
+                            Cancel
                         </button>
 
-                    </form>
+                        <form id="deleteOrderForm" method="POST">
+
+                            @csrf
+                            @method('DELETE')
+
+                            <button class="btn btn-danger px-4">
+
+                                <i class="bi bi-trash me-1"></i>
+
+                                Delete
+
+                            </button>
+
+                        </form>
+
+                    </div>
 
                 </div>
 
             </div>
-
         </div>
     </div>
-</div>
 @endsection
 
 @push('scripts')
@@ -356,16 +377,16 @@
         });
         document.querySelectorAll('.delete-order-btn').forEach(button => {
 
-        button.addEventListener('click', function () {
+            button.addEventListener('click', function() {
 
-            document.getElementById('deleteOrderForm')
-                .action = this.dataset.url;
+                document.getElementById('deleteOrderForm')
+                    .action = this.dataset.url;
 
-            document.getElementById('deleteOrderName')
-                .textContent = this.dataset.order;
+                document.getElementById('deleteOrderName')
+                    .textContent = this.dataset.order;
+
+            });
 
         });
-
-    });
     </script>
 @endpush
