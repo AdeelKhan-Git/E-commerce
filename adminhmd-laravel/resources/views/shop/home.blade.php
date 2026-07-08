@@ -37,7 +37,7 @@
 
     {{-- Slide 1 --}}
     <div class="carousel-item active">
-        <div class="hero-slide">
+        <div class="hero-slide slide1">
 
             <img src="{{ asset('uploads/banner1.png') }}" class="hero-banner" alt="Banner 1">
 
@@ -54,7 +54,7 @@
 
     {{-- Slide 2 --}}
     <div class="carousel-item">
-        <div class="hero-slide">
+        <div class="hero-slide slide2">
 
             <img src="{{ asset('uploads/banner2.png') }}" class="hero-banner" alt="Banner 2">
 
@@ -71,7 +71,7 @@
 
     {{-- Slide 3 --}}
     <div class="carousel-item">
-        <div class="hero-slide">
+        <div class="hero-slide slide3">
 
             <img src="{{ asset('uploads/banner3.png') }}" class="hero-banner" alt="Banner 3">
 
@@ -88,7 +88,7 @@
 
     {{-- Slide 4 --}}
     <div class="carousel-item">
-        <div class="hero-slide">
+        <div class="hero-slide slide4">
 
             <img src="{{ asset('uploads/banner4.png') }}" class="hero-banner" alt="Banner 4">
 

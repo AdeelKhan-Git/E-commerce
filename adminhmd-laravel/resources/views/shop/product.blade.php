@@ -61,11 +61,18 @@
 
                     <h1 style="font-size:32px;font-weight:800;margin:10px 0;">{{ $product->product_name }}</h1>
 
-                    <div style="margin:15px 0;">
+                    <div class="d-flex align-items-center gap-2 my-3">
                         @if ($product->ishot)
-                            <span class="hot-badge me-2">🔥 HOT</span>
+                            <span class="badge rounded-pill px-3 py-2"
+                                style="background:#e29578;color:#fff;font-size:13px;">
+                                🔥 HOT
+                            </span>
                         @endif
-                        <span class="badge-neon">In Stock</span>
+
+                        <span class="badge rounded-pill px-3 py-2"
+                            style="background:#83c5be;color:#006d77;font-size:13px;font-weight:600;">
+                            ✓ In Stock
+                        </span>
                     </div>
 
                     <div style="font-size:36px;font-weight:900;color:var(--neon);margin:20px 0;">
@@ -97,9 +104,21 @@
                             </button>
                         </form>
                     @else
-                        <a href="{{ route('login') }}" class="btn-neon d-block text-center mb-4"
-                            style="font-size:16px;padding:14px;">
-                            <i class="bi bi-lock me-2"></i>Sign in to Add to Cart
+                        <a href="{{ route('login') }}"
+                        class="d-block text-center mb-4"
+                        style="
+                                background:linear-gradient(135deg,#006d77,#008793);
+                                color:#fff;
+                                text-decoration:none;
+                                font-size:16px;
+                                font-weight:600;
+                                padding:14px;
+                                border-radius:14px;
+                                transition:.3s;
+                                box-shadow:0 8px 20px rgba(0,109,119,.18);
+                        ">
+                            <i class="bi bi-lock me-2"></i>
+                            Sign in to Add to Cart
                         </a>
                     @endauth
 

@@ -232,7 +232,43 @@
             font-weight:700;
             box-shadow:0 6px 20px rgba(0,109,119,.12);
         }
-        /* ======================================================
+        /* ==========================
+        Cart Responsive
+        ========================== */
+
+        .cart-row{
+            position:relative;
+        }
+
+        @media (max-width:768px){
+
+            .cart-row{
+                align-items:flex-start !important;
+            }
+
+            .cart-row form{
+                width:100%;
+            }
+
+            .cart-row .btn-outline-custom{
+                width:100%;
+            }
+
+            .cart-row > div:last-of-type{
+                width:100%;
+                text-align:left !important;
+                margin-top:10px;
+            }
+
+            .remove-cart-btn{
+                position:absolute;
+                top:8px;
+                right:8px;
+                font-size:22px !important;
+                padding:6px !important;
+            }
+        }
+       /* ======================================================
         HERO CAROUSEL
         ====================================================== */
 
@@ -245,49 +281,85 @@
 
         #heroCarousel{
             width:100%;
+            position:relative;
         }
 
+        /* ===========================
+        Slides
+        =========================== */
+
         .carousel-item{
-            height:620px;
+            height:70vh;
+            min-height:320px;
+            max-height:650px;
         }
 
         .hero-slide{
             position:relative;
             width:100%;
-            height:620px;
+            height:100%;
             overflow:hidden;
         }
+
+        /* ===========================
+        Banner Image
+        =========================== */
 
         .hero-banner{
             width:100%;
             height:100%;
-            object-fit:cover;      /* fills entire slide */
             display:block;
+            object-fit:cover;
+            object-position:center center;
         }
 
-        /* Dark overlay for better text visibility */
+        /* Different crop positions if needed */
+
+        .slide1 .hero-banner{
+            object-position:center center;
+        }
+
+        .slide2 .hero-banner{
+            object-position:right center;
+        }
+
+        .slide3 .hero-banner{
+            object-position:center center;
+        }
+
+        .slide4 .hero-banner{
+            object-position:center center;
+        }
+
+        /* ===========================
+        Overlay
+        =========================== */
+
         .hero-slide::after{
             content:"";
             position:absolute;
             inset:0;
-            /* background:rgba(0,0,0,.25); */
+            background:rgba(0,0,0,.10);
             z-index:1;
         }
 
-        /* Text Content */
+        /* ===========================
+        Hero Content
+        =========================== */
+
         .hero-content{
             position:absolute;
-            left:80px;
-            bottom:80px;
+            left:70px;
+            bottom:70px;
             z-index:5;
             max-width:520px;
         }
 
         .hero-title{
-            font-size:58px;
+            font-size:56px;
             font-weight:900;
-            color:#fff;
             line-height:1.1;
+            color:#fff;
             margin-bottom:18px;
         }
 
@@ -300,29 +372,30 @@
         }
 
         .hero-subtitle{
-            color:rgba(255,255,255,.9);
+            color:rgba(255,255,255,.95);
             font-size:20px;
-            margin-bottom:30px;
+            margin-bottom:28px;
         }
 
-        /* Hero Button ONLY */
         .hero-btn{
             display:inline-block;
-            padding:14px 40px;
+            padding:14px 38px;
             border-radius:50px;
             font-size:18px;
             font-weight:700;
-            margin-top:10px;
+            text-decoration:none;
         }
 
-        /* Controls */
+        /* ===========================
+        Controls
+        =========================== */
 
         .carousel-control-prev,
         .carousel-control-next{
             width:6%;
             opacity:0;
             transition:.3s;
-            z-index:10;
+            z-index:20;
         }
 
         #heroCarousel:hover .carousel-control-prev,
@@ -330,7 +403,9 @@
             opacity:1;
         }
 
-        /* Indicators */
+        /* ===========================
+        Indicators
+        =========================== */
 
         .carousel-indicators{
             margin-bottom:20px;
@@ -343,19 +418,21 @@
             border:none;
         }
 
-        /* Responsive */
+        /* ======================================================
+        TABLET
+        ====================================================== */
 
-        @media(max-width:992px){
+        @media (max-width:992px){
 
-            .carousel-item,
-            .hero-slide{
-                height:500px;
+            .carousel-item{
+                height:55vh;
+                min-height:420px;
             }
 
             .hero-content{
                 left:40px;
-                bottom:60px;
-                max-width:420px;
+                bottom:45px;
+                max-width:400px;
             }
 
             .hero-title{
@@ -365,39 +442,121 @@
             .hero-subtitle{
                 font-size:18px;
             }
+
+            .hero-btn{
+                padding:12px 30px;
+                font-size:16px;
+            }
         }
 
-        @media(max-width:768px){
+        /* ======================================================
+        MOBILE
+        ====================================================== */
 
-            .carousel-item,
+        @media (max-width:768px){
+
+            .carousel-item{
+                height:45vh;
+                min-height:260px;
+                max-height:360px;
+            }
+
             .hero-slide{
-                height:380px;
+                height:100%;
+            }
+
+            .hero-banner{
+                object-fit:cover;
+                object-position:center center;
             }
 
             .hero-content{
-                left:25px;
-                right:25px;
-                bottom:40px;
+                left:18px;
+                right:18px;
+                bottom:18px;
+                max-width:100%;
             }
 
             .hero-title{
-                font-size:32px;
+                font-size:28px;
+                margin-bottom:10px;
             }
 
             .hero-subtitle{
-                font-size:16px;
+                font-size:15px;
+                margin-bottom:18px;
             }
 
             .hero-btn{
-                padding:12px 28px;
-                font-size:16px;
+                padding:10px 22px;
+                font-size:14px;
+                border-radius:30px;
             }
 
             .carousel-control-prev,
             .carousel-control-next{
                 display:none;
             }
-}
+
+            .carousel-indicators{
+                margin-bottom:10px;
+            }
+
+            .carousel-indicators button{
+                width:9px;
+                height:9px;
+            }
+
+            /* Mobile crop adjustments */
+
+            .slide1 .hero-banner{
+                object-position:center;
+            }
+
+            .slide2 .hero-banner{
+                object-position:75% center;
+            }
+
+            .slide3 .hero-banner{
+                object-position:center;
+            }
+
+            .slide4 .hero-banner{
+                object-position:center;
+            }
+        }
+
+        /* ======================================================
+        SMALL MOBILE
+        ====================================================== */
+
+        @media (max-width:480px){
+
+            .carousel-item{
+                height:38vh;
+                min-height:220px;
+            }
+
+            .hero-content{
+                left:12px;
+                right:12px;
+                bottom:12px;
+            }
+
+            .hero-title{
+                font-size:22px;
+            }
+
+            .hero-subtitle{
+                font-size:13px;
+                margin-bottom:12px;
+            }
+
+            .hero-btn{
+                padding:8px 18px;
+                font-size:13px;
+            }
+        }
     </style>
 </head>
 <body>

@@ -33,7 +33,7 @@
                 <div class="col-lg-8">
                     @foreach ($cart_items as $item)
                         <div class="cart-item">
-                            <div class="d-flex gap-3 align-items-center">
+                            <div class="cart-row d-flex flex-column flex-md-row gap-3 align-items-center">
                                 {{-- Image --}}
                                 <div
                                     style="width:80px;height:80px;border-radius:8px;overflow:hidden;background:var(--bg-secondary);flex-shrink:0;">
