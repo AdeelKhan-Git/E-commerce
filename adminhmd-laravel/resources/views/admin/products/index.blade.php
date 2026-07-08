@@ -109,12 +109,23 @@
                                     data-isactive="{{ $product->isactive ? '1' : '0' }}">
                                     <i class="bi bi-pencil"></i> Edit
                                 </button>
-                                <form method="POST" action="{{ route('admin.products.destroy', $product) }}"
-                                    class="d-inline" onsubmit="return confirm('Delete this product?')">
-                                    @csrf @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-action"><i
-                                            class="bi bi-trash"></i></button>
-                                </form>
+                               <form method="POST"
+                                action="{{ route('admin.products.destroy', $product) }}"
+                                class="d-inline deleteProductForm">
+                                @csrf
+                                @method('DELETE')
+
+                                <button
+                                    type="button"
+                                    class="btn btn-danger btn-action delete-product-btn"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#deleteProductModal"
+                                    data-url="{{ route('admin.products.destroy', $product) }}"
+                                    data-name="{{ $product->product_name }}">
+
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
                             </td>
                         </tr>
                     @empty
@@ -313,6 +324,80 @@
             </div>
         </div>
     </div>
+    <!-- Delete Product Modal -->
+<div class="modal fade" id="deleteProductModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-4">
+
+            <div class="modal-body text-center p-5">
+
+                <div
+                    style="
+                        width:90px;
+                        height:90px;
+                        margin:auto;
+                        border-radius:50%;
+                        background:#ffe8e8;
+                        display:flex;
+                        align-items:center;
+                        justify-content:center;
+                    ">
+                    <i class="bi bi-trash-fill text-danger"
+                       style="font-size:42px;"></i>
+                </div>
+
+                <h3 class="mt-4 fw-bold">
+                    Delete Product?
+                </h3>
+
+                <p class="text-muted mt-3 mb-2">
+                    Are you sure you want to permanently delete
+                </p>
+
+                <h5 id="deleteProductName"
+                    class="fw-bold text-dark mb-4">
+                </h5>
+
+                <p class="text-danger small">
+                    This action cannot be undone.
+                </p>
+
+                <div class="d-flex gap-3 mt-4">
+
+                    <button
+                        class="btn btn-light border w-50 py-2"
+                        data-bs-dismiss="modal">
+
+                        Cancel
+
+                    </button>
+
+                    <form
+                        id="deleteProductForm"
+                        method="POST"
+                        class="w-50">
+
+                        @csrf
+                        @method('DELETE')
+
+                        <button
+                            class="btn btn-danger w-100 py-2">
+
+                            <i class="bi bi-trash me-2"></i>
+
+                            Delete
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
 
 @endsection
 
@@ -339,5 +424,19 @@
             const grid = document.getElementById('attGrid_' + pid);
             if (grid) grid.classList.remove('d-none');
         });
+        
+        document.querySelectorAll('.delete-product-btn').forEach(button => {
+
+        button.addEventListener('click', function () {
+
+            document.getElementById('deleteProductForm').action =
+                this.dataset.url;
+
+            document.getElementById('deleteProductName').textContent =
+                this.dataset.name;
+
+        });
+
+});
     </script>
 @endpush

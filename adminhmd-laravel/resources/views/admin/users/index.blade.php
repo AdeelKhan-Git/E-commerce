@@ -99,13 +99,26 @@
                                     data-is-admin="{{ $user->is_admin ? '1' : '0' }}">
                                     <i class="bi bi-pencil"></i> Edit
                                 </button>
-                                <form method="POST" action="{{ route('admin.users.destroy', $user) }}" class="d-inline"
-                                    onsubmit="return confirm('Delete this user?')">
-                                    @csrf @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-action">
-                                        <i class="bi bi-trash"></i> Delete
-                                    </button>
-                                </form>
+                              <form method="POST"
+                                action="{{ route('admin.users.destroy', $user) }}"
+                                class="d-inline">
+
+                                @csrf
+                                @method('DELETE')
+
+                                <button
+                                    type="button"
+                                    class="btn btn-danger btn-action delete-user-btn"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#deleteUserModal"
+                                    data-url="{{ route('admin.users.destroy', $user) }}"
+                                    data-name="{{ $user->username }}">
+
+                                    <i class="bi bi-trash"></i> Delete
+
+                                </button>
+
+                            </form>
                             </td>
                         </tr>
                     @empty
@@ -197,7 +210,79 @@
             </div>
         </div>
     </div>
+<!-- Delete User Modal -->
+<div class="modal fade" id="deleteUserModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-4">
 
+            <div class="modal-body text-center p-5">
+
+                <div style="
+                    width:90px;
+                    height:90px;
+                    margin:auto;
+                    border-radius:50%;
+                    background:#ffe8e8;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                ">
+                    <i class="bi bi-person-x-fill text-danger"
+                       style="font-size:42px;"></i>
+                </div>
+
+                <h3 class="fw-bold mt-4">
+                    Delete User?
+                </h3>
+
+                <p class="text-muted mt-3 mb-2">
+                    Are you sure you want to permanently delete
+                </p>
+
+                <h5 id="deleteUserName"
+                    class="fw-bold text-dark mb-4">
+                </h5>
+
+                <p class="text-danger small">
+                    This action cannot be undone.
+                </p>
+
+                <div class="d-flex gap-3 mt-4">
+
+                    <button
+                        class="btn btn-light border w-50 py-2"
+                        data-bs-dismiss="modal">
+
+                        Cancel
+
+                    </button>
+
+                    <form
+                        id="deleteUserForm"
+                        method="POST"
+                        class="w-50">
+
+                        @csrf
+                        @method('DELETE')
+
+                        <button
+                            class="btn btn-danger w-100 py-2">
+
+                            <i class="bi bi-trash me-2"></i>
+
+                            Delete
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
 @endsection
 
 @push('scripts')
@@ -212,5 +297,18 @@
             document.getElementById('editDesignation').value = btn.dataset.designation;
             document.getElementById('editIsAdmin').checked = btn.dataset.isAdmin === '1';
         });
+        document.querySelectorAll('.delete-user-btn').forEach(button => {
+
+    button.addEventListener('click', function () {
+
+        document.getElementById('deleteUserForm').action =
+            this.dataset.url;
+
+        document.getElementById('deleteUserName').textContent =
+            this.dataset.name;
+
+    });
+
+});
     </script>
 @endpush

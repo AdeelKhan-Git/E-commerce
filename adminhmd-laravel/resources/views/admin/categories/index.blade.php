@@ -66,12 +66,23 @@
                                     data-name="{{ $category->category_name }}" data-desc="{{ $category->_description }}">
                                     <i class="bi bi-pencil"></i> Edit
                                 </button>
-                                <form method="POST" action="{{ route('admin.categories.destroy', $category) }}"
-                                    class="d-inline" onsubmit="return confirm('Delete this category?')">
-                                    @csrf @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-action"><i class="bi bi-trash"></i>
-                                        Delete</button>
-                                </form>
+                               <form method="POST"
+                                action="{{ route('admin.categories.destroy', $category) }}"
+                                class="d-inline deleteCategoryForm">
+                                @csrf
+                                @method('DELETE')
+
+                                <button
+                                    type="button"
+                                    class="btn btn-danger btn-action delete-category-btn"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#deleteCategoryModal"
+                                    data-url="{{ route('admin.categories.destroy', $category) }}"
+                                    data-name="{{ $category->category_name }}">
+
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
                             </td>
                         </tr>
                     @empty
@@ -139,6 +150,80 @@
             </div>
         </div>
     </div>
+      <!-- Delete Product Modal -->
+<div class="modal fade" id="deleteCategoryModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-4">
+
+            <div class="modal-body text-center p-5">
+
+                <div
+                    style="
+                        width:90px;
+                        height:90px;
+                        margin:auto;
+                        border-radius:50%;
+                        background:#ffe8e8;
+                        display:flex;
+                        align-items:center;
+                        justify-content:center;
+                    ">
+                    <i class="bi bi-trash-fill text-danger"
+                       style="font-size:42px;"></i>
+                </div>
+
+                <h3 class="mt-4 fw-bold">
+                    Delete Category?
+                </h3>
+
+                <p class="text-muted mt-3 mb-2">
+                    Are you sure you want to permanently delete
+                </p>
+
+                <h5 id="deleteCategoryName"
+                    class="fw-bold text-dark mb-4">
+                </h5>
+
+                <p class="text-danger small">
+                    This action cannot be undone.
+                </p>
+
+                <div class="d-flex gap-3 mt-4">
+
+                    <button
+                        class="btn btn-light border w-50 py-2"
+                        data-bs-dismiss="modal">
+
+                        Cancel
+
+                    </button>
+
+                    <form
+                        id="deleteCategoryForm"
+                        method="POST"
+                        class="w-50">
+
+                        @csrf
+                        @method('DELETE')
+
+                        <button
+                            class="btn btn-danger w-100 py-2">
+
+                            <i class="bi bi-trash me-2"></i>
+
+                            Delete
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
 @endsection
 
 @push('scripts')
@@ -149,5 +234,18 @@
             document.getElementById('editCatName').value = btn.dataset.name;
             document.getElementById('editCatDesc').value = btn.dataset.desc;
         });
+         document.querySelectorAll('.delete-category-btn').forEach(button => {
+
+        button.addEventListener('click', function () {
+
+            document.getElementById('deleteCategoryForm').action =
+                this.dataset.url;
+
+            document.getElementById('deleteCategoryName').textContent =
+                this.dataset.name;
+
+        });
+
+});
     </script>
 @endpush

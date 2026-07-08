@@ -117,10 +117,25 @@
                             data-billing="{{ $order->billing_address }}">
                             <i class="bi bi-pencil"></i> Edit
                         </button>
-                        <form method="POST" action="{{ route('admin.orders.destroy', $order) }}" class="d-inline"
-                              onsubmit="return confirm('Delete this order?')">
-                            @csrf @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-action"><i class="bi bi-trash"></i></button>
+                        <form method="POST"
+                            action="{{ route('admin.orders.destroy', $order) }}"
+                            class="d-inline">
+
+                            @csrf
+                            @method('DELETE')
+
+                            <button
+                                type="button"
+                                class="btn btn-danger btn-action delete-order-btn"
+                                data-bs-toggle="modal"
+                                data-bs-target="#deleteOrderModal"
+                                data-url="{{ route('admin.orders.destroy', $order) }}"
+                                data-name="{{ $order->order_number }}">
+
+                                <i class="bi bi-trash"></i> Delete
+
+                            </button>
+
                         </form>
                     </td>
                 </tr>
@@ -254,7 +269,78 @@
             </div>
         </div>
     </div>
+{{-- Delete Order Modal --}}
+<div class="modal fade" id="deleteOrderModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content"
+            style="border:none;border-radius:22px;overflow:hidden;">
 
+            <div class="modal-body text-center p-5">
+
+                <div
+                    style="
+                    width:90px;
+                    height:90px;
+                    background:#ffe5e5;
+                    border-radius:50%;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                    margin:auto;
+                    ">
+
+                    <i class="bi bi-trash-fill"
+                        style="font-size:40px;color:#dc3545;"></i>
+
+                </div>
+
+                <h3 class="fw-bold mt-4 mb-2">
+                    Delete Order?
+                </h3>
+
+                <p class="text-muted mb-1">
+                    Order
+                </p>
+
+                <strong id="deleteOrderName"></strong>
+
+                <p class="text-muted mt-3 mb-4">
+                    This action cannot be undone.
+                </p>
+
+                <div class="d-flex justify-content-center gap-3">
+
+                    <button
+                        class="btn btn-light px-4"
+                        data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+
+                    <form
+                        id="deleteOrderForm"
+                        method="POST">
+
+                        @csrf
+                        @method('DELETE')
+
+                        <button
+                            class="btn btn-danger px-4">
+
+                            <i class="bi bi-trash me-1"></i>
+
+                            Delete
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
 @endsection
 
 @push('scripts')
@@ -268,5 +354,18 @@
             document.getElementById('editShipping').value = btn.dataset.shipping;
             document.getElementById('editBilling').value = btn.dataset.billing;
         });
+        document.querySelectorAll('.delete-order-btn').forEach(button => {
+
+        button.addEventListener('click', function () {
+
+            document.getElementById('deleteOrderForm')
+                .action = this.dataset.url;
+
+            document.getElementById('deleteOrderName')
+                .textContent = this.dataset.order;
+
+        });
+
+    });
     </script>
 @endpush
