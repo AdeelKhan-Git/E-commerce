@@ -143,7 +143,7 @@
                             <div class="col-12"><label class="form-label">Product Name</label><input type="text"
                                     class="form-control" name="product_name"></div>
                             <div class="col-md-6"><label class="form-label">Price</label><input type="number"
-                                    class="form-control" name="price"></div>
+                                    class="form-control" name="price"step="0.01" min="0" placeholder="0.00"></div>
                             <div class="col-md-6">
                                 <label class="form-label">Category</label>
                                 <select class="form-select" name="category_id">
