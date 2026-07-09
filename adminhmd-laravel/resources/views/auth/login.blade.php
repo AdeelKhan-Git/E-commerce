@@ -319,7 +319,7 @@
 
                     <input type="email" name="email" value="{{ old('email') }}"
                         class="form-control @error('email') is-invalid @enderror" placeholder="Enter your email"
-                        required autofocus>
+                         autofocus>
 
                 </div>
 
@@ -352,7 +352,7 @@
 
                     <input id="password" type="password" name="password"
                         class="form-control @error('password') is-invalid @enderror" placeholder="Enter your password"
-                        required>
+                        >
 
                     <button class="btn btn-eye" type="button" id="togglePassword">
 

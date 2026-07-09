@@ -264,7 +264,7 @@
                     </label>
 
                     <input type="text" name="username" class="form-control @error('username') is-invalid @enderror"
-                        value="{{ old('username') }}" required>
+                        value="{{ old('username') }}" >
 
                     @error('username')
                         <small class="text-danger">{{ $message }}</small>
@@ -281,7 +281,7 @@
                     </label>
 
                     <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                        value="{{ old('email') }}" required>
+                        value="{{ old('email') }}" >
 
                     @error('email')
                         <small class="text-danger">{{ $message }}</small>
@@ -289,28 +289,40 @@
 
                 </div>
 
-                <div class="col-md-6 mb-4">
-
+              <div class="col-md-6 mb-4">
                     <label class="form-label">
-
                         Phone Number
-
                     </label>
 
-                    <input type="text" name="phone_number" class="form-control" value="{{ old('phone_number') }}">
+                    <input
+                        type="text"
+                        name="phone_number"
+                        value="{{ old('phone_number') }}"
+                        class="form-control @error('phone_number') is-invalid @enderror"
+                        
+                    >
 
+                    @error('phone_number')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
                 </div>
 
-                <div class="col-md-6 mb-4">
-
+               <div class="col-md-6 mb-4">
                     <label class="form-label">
-
                         City
-
                     </label>
 
-                    <input type="text" name="city" class="form-control" value="{{ old('city') }}">
+                    <input
+                        type="text"
+                        name="city"
+                        value="{{ old('city') }}"
+                        class="form-control @error('city') is-invalid @enderror"
+                        
+                    >
 
+                    @error('city')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
                 </div>
                 <div class="col-md-6 mb-4">
 
@@ -323,7 +335,7 @@
                     <div class="input-group">
 
                         <input type="password" id="password" name="password"
-                            class="form-control @error('password') is-invalid @enderror" required>
+                            class="form-control @error('password') is-invalid @enderror" >
 
                         <button type="button" class="btn btn-eye" id="togglePassword">
 
@@ -354,7 +366,7 @@
                     <div class="input-group">
 
                         <input type="password" id="password_confirmation" name="password_confirmation"
-                            class="form-control" required>
+                            class="form-control" >
 
                         <button type="button" class="btn btn-eye" id="toggleConfirmPassword">
 
